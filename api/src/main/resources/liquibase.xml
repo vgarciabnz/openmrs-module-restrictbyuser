@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    <!--
+        See http://www.liquibase.org/manual/home#available_database_refactorings
+        for a list of supported elements and attributes
+    -->
+    
+    <changeSet id="restrictbyrole-20140726-1751" author="vgarciabnz">
+        
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="restrictbyrole_role_restriction"/></not>
+        </preConditions>
+        
+        <createTable tableName="restrictbyrole_role_restriction">
+            <column name="role_restriction_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="role" type="VARCHAR(50)">
+            	<constraints nullable="false"/>
+            </column>
+            <column name="cohort_uuid" type="VARCHAR(36)">
+            	<constraints nullable="false"/>
+           	</column>
+            <column name="uuid" type="VARCHAR(36)">
+            	<constraints nullable="false"/>
+            </column>
+        </createTable>
+        
+    </changeSet>
+    
+</databaseChangeLog>

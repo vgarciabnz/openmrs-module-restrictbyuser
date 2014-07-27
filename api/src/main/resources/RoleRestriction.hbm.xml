@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.restrictbyrole">
+
+	<class name="RoleRestriction" table="restrictbyrole_role_restriction" batch-size="25">
+		<id name="id" type="int" column="role_restriction_id"
+			unsaved-value="0">
+			<generator class="native" />
+		</id>
+
+		<many-to-one name="role" class="org.openmrs.Role" not-null="true">
+			<column name="role" />
+		</many-to-one>
+
+		<property name="cohortUuid" type="java.lang.String" length="11" column="cohort_uuid" not-null="true" />
+		
+		<property name="uuid" type="java.lang.String" column="uuid" length="36" not-null="true"/>
+	</class>
+
+</hibernate-mapping>
