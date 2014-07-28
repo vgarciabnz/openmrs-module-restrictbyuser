@@ -55,4 +55,8 @@ public void createRoleRestriction(RoleRestriction rolePermission);
 	public Cohort getCurrentUserRestrictedPatientSet();
 	
 	public List<SerializedObject> getAllSerializedObjects();
+	
+	public SerializedObject getSerializedObject(Integer id);
+	
+	public SerializedObject getSerializedObjectByUuid(String uuid);
 }

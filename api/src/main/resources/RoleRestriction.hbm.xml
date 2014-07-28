@@ -15,7 +15,10 @@
 			<column name="role" />
 		</many-to-one>
 
-		<property name="cohortUuid" type="java.lang.String" length="11" column="cohort_uuid" not-null="true" />
+		<many-to-one name="serializedObject" class="org.openmrs.api.db.SerializedObject" not-null="true"
+		    property-ref="uuid">
+		    <column name="cohort_uuid" />
+		</many-to-one>
 		
 		<property name="uuid" type="java.lang.String" column="uuid" length="36" not-null="true"/>
 	</class>

@@ -25,8 +25,8 @@
 					<td>${restriction.id}</td>
 					<td>${restriction.role.role}</td>
 					<td>
-						${restriction.cohortUuid}
-						<small>(${restriction.id})</small>
+						${restriction.serializedObject.name}
+						<small>(${restriction.serializedObject.description})</small>
 					</td>
 				</tr>
 			</c:forEach>
