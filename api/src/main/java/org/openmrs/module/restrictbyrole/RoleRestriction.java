@@ -17,6 +17,7 @@ import java.io.Serializable;
 import org.openmrs.BaseOpenmrsObject;
 import org.openmrs.BaseOpenmrsMetadata;
 import org.openmrs.Role;
+import org.openmrs.api.db.SerializedObject;
 
 /**
  * It is a model class. It should extend either {@link BaseOpenmrsObject} or {@link BaseOpenmrsMetadata}.
@@ -27,8 +28,16 @@ public class RoleRestriction extends BaseOpenmrsObject implements Serializable {
 	
 	private Integer id;
 	private Role role;
-	private String cohortUuid;
+	private SerializedObject serializedObject;
 	
+	public SerializedObject getSerializedObject() {
+		return serializedObject;
+	}
+
+	public void setSerializedObject(SerializedObject serializedObject) {
+		this.serializedObject = serializedObject;
+	}
+
 	public RoleRestriction() { }
 	
 	@Override
@@ -47,14 +56,6 @@ public class RoleRestriction extends BaseOpenmrsObject implements Serializable {
 
 	public void setRole(Role role) {
 		this.role = role;
-	}
-
-	public String getCohortUuid() {
-		return cohortUuid;
-	}
-
-	public void setCohortUuid(String cohortUuid) {
-		this.cohortUuid = cohortUuid;
 	}
 	
 	/**

@@ -15,6 +15,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.api.db.SerializedObject;
 import org.openmrs.module.restrictbyrole.RoleRestriction;
 import org.openmrs.module.restrictbyrole.RoleRestrictionValidator;
+import org.openmrs.module.restrictbyrole.SerializedObjectEditor;
 import org.openmrs.module.restrictbyrole.api.RestrictByRoleService;
 import org.openmrs.propertyeditor.RoleEditor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,7 @@ public class RestrictionFormController {
         binder.registerCustomEditor(java.lang.Integer.class,
                 new CustomNumberEditor(java.lang.Integer.class, true));
         binder.registerCustomEditor(org.openmrs.Role.class, new RoleEditor());
+        binder.registerCustomEditor(org.openmrs.api.db.SerializedObject.class, new SerializedObjectEditor());
 	}
 	
 	@ModelAttribute("restriction")

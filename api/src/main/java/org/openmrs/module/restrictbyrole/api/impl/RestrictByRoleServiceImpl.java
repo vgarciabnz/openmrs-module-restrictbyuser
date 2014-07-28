@@ -120,7 +120,7 @@ public class RestrictByRoleServiceImpl extends BaseOpenmrsService implements Res
 					
 			try {
 
-				SerializedObject so = sodao.getSerializedObjectByUuid(restriction.getCohortUuid());
+				SerializedObject so = restriction.getSerializedObject();
 				CohortDefinition c = Context.getSerializationService().deserialize(so.getSerializedData(), CohortDefinition.class, ReportingSerializer.class);
 
 				CohortDefinitionService pq = Context.getService(CohortDefinitionService.class);
@@ -145,5 +145,15 @@ public class RestrictByRoleServiceImpl extends BaseOpenmrsService implements Res
 
 	public void setDao(RestrictByRoleDAO dao) {
 		this.dao = dao;
+	}
+
+	@Override
+	public SerializedObject getSerializedObject(Integer id) {
+		return sodao.getSerializedObject(id);
+	}
+
+	@Override
+	public SerializedObject getSerializedObjectByUuid(String uuid) {
+		return sodao.getSerializedObjectByUuid(uuid);
 	}
 }

@@ -34,7 +34,7 @@
 		</tr>
 		<tr>
 			<td><spring:message code="restrictbyrole.search"/></td>
-			<spring:bind path="restriction.cohortUuid">
+			<spring:bind path="restriction.serializedObject">
 				<td>
 					<select name="${status.expression}">
 						<option value=""></option>
