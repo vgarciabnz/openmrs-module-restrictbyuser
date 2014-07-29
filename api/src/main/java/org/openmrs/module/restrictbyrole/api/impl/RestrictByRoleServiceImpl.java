@@ -51,6 +51,14 @@ public class RestrictByRoleServiceImpl extends BaseOpenmrsService implements Res
 	private RestrictByRoleDAO dao;
 	private SerializedObjectDAO sodao;
 	
+	public RestrictByRoleDAO getDao() {
+		return dao;
+	}
+
+	public void setDao(RestrictByRoleDAO dao) {
+		this.dao = dao;
+	}	
+	
 	public SerializedObjectDAO getSodao() {
 		return sodao;
 	}
@@ -59,34 +67,58 @@ public class RestrictByRoleServiceImpl extends BaseOpenmrsService implements Res
 		this.sodao = sodao;
 	}
 
+	/**
+	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#createRoleRestriction(RoleRestriction)
+	 */
 	public void createRoleRestriction(RoleRestriction roleRestriction) {
 		getDao().createRoleRestriction(roleRestriction);
 	}
 
+	/**
+	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#deleteRoleRestriction(RoleRestriction)
+	 */
 	public void deleteRoleRestriction(RoleRestriction roleRestriction) {
 		getDao().deleteRoleRestriction(roleRestriction);
 	}
 
+	/**
+	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#getRoleRestriction(Integer)
+	 */
 	public RoleRestriction getRoleRestriction(Integer id) {
 		return getDao().getRoleRestriction(id);
 	}
 
+	/**
+	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#getRoleRestrictions()
+	 */
 	public List<RoleRestriction> getRoleRestrictions() {
 		return getDao().getRoleRestrictions();
 	}
 	
+	/**
+	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#getRoleRestrictions(Role)
+	 */
 	public List<RoleRestriction> getRoleRestrictions(Role role) {
 		return getDao().getRoleRestrictions(role);
 	}
 
+	/**
+	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#updateRoleRestriction(RoleRestriction)
+	 */
 	public void updateRoleRestriction(RoleRestriction roleRestriction) {
 		getDao().updateRoleRestriction(roleRestriction);
 	}
 	
+	/**
+	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#doesCurrentUserHavePermission(Patient)
+	 */
 	public boolean doesCurrentUserHavePermission(Patient patient) {
 		return doesCurrentUserHavePermission(patient.getPatientId());
 	}
 
+	/**
+	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#doesCurrentUserHavePermission(Integer)
+	 */
 	public boolean doesCurrentUserHavePermission(Integer patientId) {
 		Cohort ps = getCurrentUserRestrictedPatientSet();
 		if (ps == null)
@@ -94,7 +126,10 @@ public class RestrictByRoleServiceImpl extends BaseOpenmrsService implements Res
 		else
 			return ps.contains(patientId);
 	}
-		
+	
+	/**
+	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#getCurrentUserRestrictions()
+	 */
 	public Set<RoleRestriction> getCurrentUserRestrictions() {
 		if (!Context.isAuthenticated())
 			return null;
@@ -106,10 +141,16 @@ public class RestrictByRoleServiceImpl extends BaseOpenmrsService implements Res
 		return ret;
 	}
 	
+	/**
+	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#getAllSerializedObjects()
+	 */
 	public List<SerializedObject> getAllSerializedObjects(){
 		return sodao.getAllSerializedObjects(CohortDefinition.class, false);
 	}
 
+	/**
+	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#getCurrentUserRestrictedPatientSet()
+	 */
 	public Cohort getCurrentUserRestrictedPatientSet() {
 		Set<RoleRestriction> restrictions = getCurrentUserRestrictions();
 		if (restrictions == null)
@@ -139,20 +180,16 @@ public class RestrictByRoleServiceImpl extends BaseOpenmrsService implements Res
 		return ret;
 	}
 
-	public RestrictByRoleDAO getDao() {
-		return dao;
-	}
-
-	public void setDao(RestrictByRoleDAO dao) {
-		this.dao = dao;
-	}
-
-	@Override
+	/**
+	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#getSerializedObject(Integer)
+	 */
 	public SerializedObject getSerializedObject(Integer id) {
 		return sodao.getSerializedObject(id);
 	}
 
-	@Override
+	/**
+	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#getSerializedObjectByUuid(String)
+	 */
 	public SerializedObject getSerializedObjectByUuid(String uuid) {
 		return sodao.getSerializedObjectByUuid(uuid);
 	}

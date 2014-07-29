@@ -44,7 +44,7 @@ import org.springframework.web.servlet.view.RedirectView;
  */
 @Controller
 @RequestMapping("/module/restrictbyrole/restrictionList")
-public class  RestrictByRoleManageController {
+public class  RestrictionListController {
 	
 	protected final Log log = LogFactory.getLog(getClass());
 	

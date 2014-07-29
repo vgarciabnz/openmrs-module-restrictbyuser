@@ -15,12 +15,11 @@ package org.openmrs.module.restrictbyrole;
 
 import java.io.Serializable;
 import org.openmrs.BaseOpenmrsObject;
-import org.openmrs.BaseOpenmrsMetadata;
 import org.openmrs.Role;
 import org.openmrs.api.db.SerializedObject;
 
 /**
- * It is a model class. It should extend either {@link BaseOpenmrsObject} or {@link BaseOpenmrsMetadata}.
+ * The class represents a restriction associated to a role.
  */
 public class RoleRestriction extends BaseOpenmrsObject implements Serializable {
 
@@ -29,6 +28,14 @@ public class RoleRestriction extends BaseOpenmrsObject implements Serializable {
 	private Integer id;
 	private Role role;
 	private SerializedObject serializedObject;
+	
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
 	
 	public SerializedObject getSerializedObject() {
 		return serializedObject;
@@ -49,24 +56,5 @@ public class RoleRestriction extends BaseOpenmrsObject implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-	
-	/**
-	public PatientSearch getPatientSearch() {
-		PatientSearchReportObject o = (PatientSearchReportObject) Context.getReportService().getReportObject(searchId);
-		return o.getPatientSearch();
-	}
-	
-	public PatientSearchReportObject getPatientSearchReportObject() {
-		return (PatientSearchReportObject) Context.getReportService().getReportObject(searchId);
-	}
-	*/
 	
 }

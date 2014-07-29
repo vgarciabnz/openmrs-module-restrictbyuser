@@ -18,6 +18,7 @@ import java.util.Set;
 
 import org.openmrs.Cohort;
 import org.openmrs.Patient;
+import org.openmrs.Role;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.api.db.SerializedObject;
 import org.openmrs.module.restrictbyrole.RoleRestriction;
@@ -35,28 +36,88 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 public interface RestrictByRoleService extends OpenmrsService {
-     
-public void createRoleRestriction(RoleRestriction rolePermission);
 	
+	/**
+	 * Add a RoleRestrictiction to the database
+	 * @param rolePermission
+	 */
+	public void createRoleRestriction(RoleRestriction rolePermission);
+	
+	/**
+	 * Update an existing RoleRestriction
+	 * @param rolePermission
+	 */
 	public void updateRoleRestriction(RoleRestriction rolePermission);
 	
+	/**
+	 * Delete a RoleRestriction
+	 * @param rolePermission
+	 */
 	public void deleteRoleRestriction(RoleRestriction rolePermission);
 	
+	/**
+	 * Get RoleRestriction by Id
+	 * @param id Id for the RoleRestriction
+	 * @return The corresponding RoleRestriction
+	 */
 	public RoleRestriction getRoleRestriction(Integer id);
 	
+	/**
+	 * Get the list of all existing RoleRestrictions
+	 * @return List of RoleRestrictions
+	 */
 	public List<RoleRestriction> getRoleRestrictions();
 	
+	/**
+	 * Get the list of RoleRestrictions associated to a role
+	 * @param role Role to check the RoleRestrictions for
+	 * @return List of RoleRestrictions
+	 */
+	public List<RoleRestriction> getRoleRestrictions(Role role);
+	
+	/**
+	 * Check if the current user has permission to view/edit the patient provided as parameter
+	 * @param patient Patient to check permission for
+	 * @return If current user has permission or not
+	 */
 	public boolean doesCurrentUserHavePermission(Patient patient);
 	
+	/**
+	 * Check if the current user has permission to view/edit the patient provided as parameter
+	 * @param patientId If of the patient to check permission for
+	 * @return If current user has permission or not
+	 */
 	public boolean doesCurrentUserHavePermission(Integer patientId);
 
+	/**
+	 * Get the list of RoleRestrictions associated to the current user
+	 * @return List of RoleRestrictions
+	 */
 	public Set<RoleRestriction> getCurrentUserRestrictions();
 	
+	/**
+	 * Get the cohort (list of ID's) that current user has permission for
+	 * @return Cohort associated to current user
+	 */
 	public Cohort getCurrentUserRestrictedPatientSet();
 	
+	/**
+	 * Get all SerializedObjects
+	 * @return List of SerializedObjects
+	 */
 	public List<SerializedObject> getAllSerializedObjects();
 	
+	/**
+	 * Get a SerializedObject by Id
+	 * @param id Id of the SerializedObject
+	 * @return SerializedObject
+	 */
 	public SerializedObject getSerializedObject(Integer id);
 	
+	/**
+	 * Get a SerializedObject by uuid
+	 * @param uuid Uuid of the SerializedObject
+	 * @return SerializedObject
+	 */
 	public SerializedObject getSerializedObjectByUuid(String uuid);
 }

@@ -1,3 +1,16 @@
+/**
+ * The contents of this file are subject to the OpenMRS Public License
+ * Version 1.0 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://license.openmrs.org
+ *
+ * Software distributed under the License is distributed on an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+ * License for the specific language governing rights and limitations
+ * under the License.
+ *
+ * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+ */
 package org.openmrs.module.restrictbyrole;
 
 import java.beans.PropertyEditorSupport;
@@ -20,12 +33,10 @@ public class SerializedObjectEditor extends PropertyEditorSupport {
 		if (StringUtils.hasText(text)) {
 			RestrictByRoleService service = Context.getService(RestrictByRoleService.class);
 			try {
-				System.out.println("Intenta por id");
 				SerializedObject object = service.getSerializedObject(Integer.valueOf(text)); 
 				setValue(object);
 			}
 			catch (Exception ex) {
-				System.out.println("Prueba con uuid");
 				SerializedObject object = service.getSerializedObjectByUuid(text);
 				setValue(object);
 				if (object == null) {
@@ -44,7 +55,6 @@ public class SerializedObjectEditor extends PropertyEditorSupport {
 		if (so == null) {
 			return "";
 		} else {
-			System.out.println("Devuelve "+so.getUuid());
 			return so.getUuid();
 		}
 	}
