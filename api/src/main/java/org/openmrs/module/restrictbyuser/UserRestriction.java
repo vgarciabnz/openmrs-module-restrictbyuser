@@ -11,32 +11,32 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.restrictbyrole;
+package org.openmrs.module.restrictbyuser;
 
 import java.io.Serializable;
 import org.openmrs.BaseOpenmrsObject;
-import org.openmrs.Role;
+import org.openmrs.User;
 import org.openmrs.api.db.SerializedObject;
 
 /**
  * The class represents a restriction associated to a role.
  */
-public class RoleRestriction extends BaseOpenmrsObject implements Serializable {
+public class UserRestriction extends BaseOpenmrsObject implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
-	private Role role;
+	private User user;
 	private SerializedObject serializedObject;
 	
-	public Role getRole() {
-		return role;
+	public User getUser() {
+		return user;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setUser(User user) {
+		this.user = user;
 	}
-	
+
 	public SerializedObject getSerializedObject() {
 		return serializedObject;
 	}
@@ -45,7 +45,7 @@ public class RoleRestriction extends BaseOpenmrsObject implements Serializable {
 		this.serializedObject = serializedObject;
 	}
 
-	public RoleRestriction() { }
+	public UserRestriction() { }
 	
 	@Override
 	public Integer getId() {

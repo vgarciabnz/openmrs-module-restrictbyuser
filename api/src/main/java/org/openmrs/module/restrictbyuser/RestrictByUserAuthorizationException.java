@@ -11,27 +11,27 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.restrictbyrole;
+package org.openmrs.module.restrictbyuser;
 
 import org.openmrs.api.APIAuthenticationException;
 
-public class RestrictByRoleAuthorizationException extends APIAuthenticationException {
+public class RestrictByUserAuthorizationException extends APIAuthenticationException {
 
 	private static final long serialVersionUID = 1L;
 
-	public RestrictByRoleAuthorizationException() {
+	public RestrictByUserAuthorizationException() {
 		super();
 	}
 	
-	public RestrictByRoleAuthorizationException(String message) {
+	public RestrictByUserAuthorizationException(String message) {
 		super(message);
 	}
 	
-	public RestrictByRoleAuthorizationException(String message, Throwable cause) {
+	public RestrictByUserAuthorizationException(String message, Throwable cause) {
 		super(message, cause);
 	}
 	
-	public RestrictByRoleAuthorizationException(Throwable cause) {
+	public RestrictByUserAuthorizationException(Throwable cause) {
 		super(cause);
 	}
 	

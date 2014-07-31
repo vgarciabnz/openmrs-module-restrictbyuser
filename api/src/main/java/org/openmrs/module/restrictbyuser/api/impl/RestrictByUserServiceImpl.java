@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.restrictbyrole.api.impl;
+package org.openmrs.module.restrictbyuser.api.impl;
 
 import java.util.HashSet;
 import java.util.List;
@@ -24,6 +24,7 @@ import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.openmrs.Cohort;
 import org.openmrs.Patient;
 import org.openmrs.Role;
+import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.SerializedObject;
 import org.openmrs.api.db.SerializedObjectDAO;
@@ -35,27 +36,27 @@ import org.openmrs.module.reporting.query.person.PersonQueryResult;
 import org.openmrs.module.reporting.query.person.definition.PersonQuery;
 import org.openmrs.module.reporting.query.person.service.PersonQueryService;
 import org.openmrs.module.reporting.serializer.ReportingSerializer;
-import org.openmrs.module.restrictbyrole.RoleRestriction;
-import org.openmrs.module.restrictbyrole.api.RestrictByRoleService;
-import org.openmrs.module.restrictbyrole.api.db.RestrictByRoleDAO;
+import org.openmrs.module.restrictbyuser.UserRestriction;
+import org.openmrs.module.restrictbyuser.api.RestrictByUserService;
+import org.openmrs.module.restrictbyuser.api.db.RestrictByUserDAO;
 import org.openmrs.module.serialization.xstream.XStreamSerializer;
 import org.openmrs.serialization.SerializationException;
 
 /**
- * It is a default implementation of {@link RestrictByRoleService}.
+ * It is a default implementation of {@link RestrictByUserService}.
  */
-public class RestrictByRoleServiceImpl extends BaseOpenmrsService implements RestrictByRoleService {
+public class RestrictByUserServiceImpl extends BaseOpenmrsService implements RestrictByUserService {
 	
 	protected final Log log = LogFactory.getLog(this.getClass());
 	
-	private RestrictByRoleDAO dao;
+	private RestrictByUserDAO dao;
 	private SerializedObjectDAO sodao;
 	
-	public RestrictByRoleDAO getDao() {
+	public RestrictByUserDAO getDao() {
 		return dao;
 	}
 
-	public void setDao(RestrictByRoleDAO dao) {
+	public void setDao(RestrictByUserDAO dao) {
 		this.dao = dao;
 	}	
 	
@@ -68,56 +69,56 @@ public class RestrictByRoleServiceImpl extends BaseOpenmrsService implements Res
 	}
 
 	/**
-	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#createRoleRestriction(RoleRestriction)
+	 * @see org.openmrs.module.restrictbyuser.api.RestrictByUserService#createUserRestriction(UserRestriction)
 	 */
-	public void createRoleRestriction(RoleRestriction roleRestriction) {
-		getDao().createRoleRestriction(roleRestriction);
+	public void createUserRestriction(UserRestriction roleRestriction) {
+		getDao().createUserRestriction(roleRestriction);
 	}
 
 	/**
-	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#deleteRoleRestriction(RoleRestriction)
+	 * @see org.openmrs.module.restrictbyuser.api.RestrictByUserService#deleteUserRestriction(UserRestriction)
 	 */
-	public void deleteRoleRestriction(RoleRestriction roleRestriction) {
-		getDao().deleteRoleRestriction(roleRestriction);
+	public void deleteUserRestriction(UserRestriction roleRestriction) {
+		getDao().deleteUserRestriction(roleRestriction);
 	}
 
 	/**
-	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#getRoleRestriction(Integer)
+	 * @see org.openmrs.module.restrictbyuser.api.RestrictByUserService#getUserRestriction(Integer)
 	 */
-	public RoleRestriction getRoleRestriction(Integer id) {
-		return getDao().getRoleRestriction(id);
+	public UserRestriction getUserRestriction(Integer id) {
+		return getDao().getUserRestriction(id);
 	}
 
 	/**
-	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#getRoleRestrictions()
+	 * @see org.openmrs.module.restrictbyuser.api.RestrictByUserService#getUserRestrictions()
 	 */
-	public List<RoleRestriction> getRoleRestrictions() {
-		return getDao().getRoleRestrictions();
+	public List<UserRestriction> getUserRestrictions() {
+		return getDao().getUserRestrictions();
 	}
 	
 	/**
-	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#getRoleRestrictions(Role)
+	 * @see org.openmrs.module.restrictbyuser.api.RestrictByUserService#getUserRestrictions(Role)
 	 */
-	public List<RoleRestriction> getRoleRestrictions(Role role) {
-		return getDao().getRoleRestrictions(role);
+	public List<UserRestriction> getUserRestrictions(User user) {
+		return getDao().getUserRestrictions(user);
 	}
 
 	/**
-	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#updateRoleRestriction(RoleRestriction)
+	 * @see org.openmrs.module.restrictbyuser.api.RestrictByUserService#updateUserRestriction(UserRestriction)
 	 */
-	public void updateRoleRestriction(RoleRestriction roleRestriction) {
-		getDao().updateRoleRestriction(roleRestriction);
+	public void updateUserRestriction(UserRestriction roleRestriction) {
+		getDao().updateUserRestriction(roleRestriction);
 	}
 	
 	/**
-	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#doesCurrentUserHavePermission(Patient)
+	 * @see org.openmrs.module.restrictbyuser.api.RestrictByUserService#doesCurrentUserHavePermission(Patient)
 	 */
 	public boolean doesCurrentUserHavePermission(Patient patient) {
 		return doesCurrentUserHavePermission(patient.getPatientId());
 	}
 
 	/**
-	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#doesCurrentUserHavePermission(Integer)
+	 * @see org.openmrs.module.restrictbyuser.api.RestrictByUserService#doesCurrentUserHavePermission(Integer)
 	 */
 	public boolean doesCurrentUserHavePermission(Integer patientId) {
 		Cohort ps = getCurrentUserRestrictedPatientSet();
@@ -128,36 +129,37 @@ public class RestrictByRoleServiceImpl extends BaseOpenmrsService implements Res
 	}
 	
 	/**
-	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#getCurrentUserRestrictions()
+	 * @see org.openmrs.module.restrictbyuser.api.RestrictByUserService#getCurrentUserRestrictions()
 	 */
-	public Set<RoleRestriction> getCurrentUserRestrictions() {
+	public Set<UserRestriction> getCurrentUserRestrictions() {
 		if (!Context.isAuthenticated())
 			return null;
-		Set<Role> roles = Context.getAuthenticatedUser().getAllRoles();
-		Set<RoleRestriction> ret = new HashSet<RoleRestriction>();
-		for (Role role : roles)
-			ret.addAll(getRoleRestrictions(role));
+		User user = Context.getAuthenticatedUser();
+		Set<UserRestriction> ret = new HashSet<UserRestriction>();
+		//for (Role role : roles)
+			//ret.addAll(getUserRestrictions(role));
+		ret.addAll(getUserRestrictions(user));
 		log.debug("current user has " + ret.size() + " restrictions");
 		return ret;
 	}
 	
 	/**
-	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#getAllSerializedObjects()
+	 * @see org.openmrs.module.restrictbyuser.api.RestrictByUserService#getAllSerializedObjects()
 	 */
 	public List<SerializedObject> getAllSerializedObjects(){
 		return sodao.getAllSerializedObjects(CohortDefinition.class, false);
 	}
 
 	/**
-	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#getCurrentUserRestrictedPatientSet()
+	 * @see org.openmrs.module.restrictbyuser.api.RestrictByUserService#getCurrentUserRestrictedPatientSet()
 	 */
 	public Cohort getCurrentUserRestrictedPatientSet() {
-		Set<RoleRestriction> restrictions = getCurrentUserRestrictions();
+		Set<UserRestriction> restrictions = getCurrentUserRestrictions();
 		if (restrictions == null)
 			return null;
 		Cohort ret = null;
 		
-		for (RoleRestriction restriction : restrictions) {
+		for (UserRestriction restriction : restrictions) {
 					
 			try {
 
@@ -181,14 +183,14 @@ public class RestrictByRoleServiceImpl extends BaseOpenmrsService implements Res
 	}
 
 	/**
-	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#getSerializedObject(Integer)
+	 * @see org.openmrs.module.restrictbyuser.api.RestrictByUserService#getSerializedObject(Integer)
 	 */
 	public SerializedObject getSerializedObject(Integer id) {
 		return sodao.getSerializedObject(id);
 	}
 
 	/**
-	 * @see org.openmrs.module.restrictbyrole.api.RestrictByRoleService#getSerializedObjectByUuid(String)
+	 * @see org.openmrs.module.restrictbyuser.api.RestrictByUserService#getSerializedObjectByUuid(String)
 	 */
 	public SerializedObject getSerializedObjectByUuid(String uuid) {
 		return sodao.getSerializedObjectByUuid(uuid);

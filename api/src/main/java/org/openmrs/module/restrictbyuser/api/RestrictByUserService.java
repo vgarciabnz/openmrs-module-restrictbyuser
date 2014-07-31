@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.restrictbyrole.api;
+package org.openmrs.module.restrictbyuser.api;
 
 import java.util.List;
 import java.util.Set;
@@ -19,9 +19,10 @@ import java.util.Set;
 import org.openmrs.Cohort;
 import org.openmrs.Patient;
 import org.openmrs.Role;
+import org.openmrs.User;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.api.db.SerializedObject;
-import org.openmrs.module.restrictbyrole.RoleRestriction;
+import org.openmrs.module.restrictbyuser.UserRestriction;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -35,45 +36,45 @@ import org.springframework.transaction.annotation.Transactional;
  * @see org.openmrs.api.context.Context
  */
 @Transactional
-public interface RestrictByRoleService extends OpenmrsService {
+public interface RestrictByUserService extends OpenmrsService {
 	
 	/**
 	 * Add a RoleRestrictiction to the database
 	 * @param rolePermission
 	 */
-	public void createRoleRestriction(RoleRestriction rolePermission);
+	public void createUserRestriction(UserRestriction userPermission);
 	
 	/**
 	 * Update an existing RoleRestriction
 	 * @param rolePermission
 	 */
-	public void updateRoleRestriction(RoleRestriction rolePermission);
+	public void updateUserRestriction(UserRestriction userPermission);
 	
 	/**
 	 * Delete a RoleRestriction
 	 * @param rolePermission
 	 */
-	public void deleteRoleRestriction(RoleRestriction rolePermission);
+	public void deleteUserRestriction(UserRestriction userPermission);
 	
 	/**
 	 * Get RoleRestriction by Id
 	 * @param id Id for the RoleRestriction
 	 * @return The corresponding RoleRestriction
 	 */
-	public RoleRestriction getRoleRestriction(Integer id);
+	public UserRestriction getUserRestriction(Integer id);
 	
 	/**
 	 * Get the list of all existing RoleRestrictions
 	 * @return List of RoleRestrictions
 	 */
-	public List<RoleRestriction> getRoleRestrictions();
+	public List<UserRestriction> getUserRestrictions();
 	
 	/**
 	 * Get the list of RoleRestrictions associated to a role
-	 * @param role Role to check the RoleRestrictions for
+	 * @param user Role to check the RoleRestrictions for
 	 * @return List of RoleRestrictions
 	 */
-	public List<RoleRestriction> getRoleRestrictions(Role role);
+	public List<UserRestriction> getUserRestrictions(User user);
 	
 	/**
 	 * Check if the current user has permission to view/edit the patient provided as parameter
@@ -93,7 +94,7 @@ public interface RestrictByRoleService extends OpenmrsService {
 	 * Get the list of RoleRestrictions associated to the current user
 	 * @return List of RoleRestrictions
 	 */
-	public Set<RoleRestriction> getCurrentUserRestrictions();
+	public Set<UserRestriction> getCurrentUserRestrictions();
 	
 	/**
 	 * Get the cohort (list of ID's) that current user has permission for

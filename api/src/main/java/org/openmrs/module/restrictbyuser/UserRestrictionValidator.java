@@ -11,21 +11,21 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.restrictbyrole;
+package org.openmrs.module.restrictbyuser;
 
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-public class RoleRestrictionValidator implements Validator {
+public class UserRestrictionValidator implements Validator {
 
 	public boolean supports(Class c) {
-		return c.equals(RoleRestriction.class);
+		return c.equals(UserRestriction.class);
 	}
 
 	public void validate(Object o, Errors errors) {
-		RoleRestriction rr = (RoleRestriction) o;
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "role", "error.role");
+		UserRestriction rr = (UserRestriction) o;
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "user", "error.user");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "searchId", "error.search");
 	}
 

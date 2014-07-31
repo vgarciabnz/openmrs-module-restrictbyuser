@@ -3,16 +3,16 @@
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
 
-<hibernate-mapping package="org.openmrs.module.restrictbyrole">
+<hibernate-mapping package="org.openmrs.module.restrictbyuser">
 
-	<class name="RoleRestriction" table="restrictbyrole_role_restriction" batch-size="25">
-		<id name="id" type="int" column="role_restriction_id"
+	<class name="UserRestriction" table="restrictbyuser_user_restriction" batch-size="25">
+		<id name="id" type="int" column="user_restriction_id"
 			unsaved-value="0">
 			<generator class="native" />
 		</id>
 
-		<many-to-one name="role" class="org.openmrs.Role" not-null="true">
-			<column name="role" />
+		<many-to-one name="user" class="org.openmrs.User" not-null="true" property-ref="username">
+			<column name="user" />
 		</many-to-one>
 
 		<many-to-one name="serializedObject" class="org.openmrs.api.db.SerializedObject" not-null="true"

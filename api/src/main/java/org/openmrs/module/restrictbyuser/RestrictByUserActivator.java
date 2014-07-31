@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.restrictbyrole;
+package org.openmrs.module.restrictbyuser;
 
 
 import org.apache.commons.logging.Log; 
@@ -21,7 +21,7 @@ import org.openmrs.module.ModuleActivator;
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
  */
-public class RestrictByRoleActivator implements ModuleActivator {
+public class RestrictByUserActivator implements ModuleActivator {
 	
 	protected Log log = LogFactory.getLog(getClass());
 		
@@ -29,42 +29,42 @@ public class RestrictByRoleActivator implements ModuleActivator {
 	 * @see ModuleActivator#willRefreshContext()
 	 */
 	public void willRefreshContext() {
-		log.info("Refreshing Restrict By Role Module");
+		log.info("Refreshing Restrict By User Module");
 	}
 	
 	/**
 	 * @see ModuleActivator#contextRefreshed()
 	 */
 	public void contextRefreshed() {
-		log.info("Restrict By Role Module refreshed");
+		log.info("Restrict By User Module refreshed");
 	}
 	
 	/**
 	 * @see ModuleActivator#willStart()
 	 */
 	public void willStart() {
-		log.info("Starting Restrict By Role Module");
+		log.info("Starting Restrict By User Module");
 	}
 	
 	/**
 	 * @see ModuleActivator#started()
 	 */
 	public void started() {
-		log.info("Restrict By Role Module started");
+		log.info("Restrict By User Module started");
 	}
 	
 	/**
 	 * @see ModuleActivator#willStop()
 	 */
 	public void willStop() {
-		log.info("Stopping Restrict By Role Module");
+		log.info("Stopping Restrict By User Module");
 	}
 	
 	/**
 	 * @see ModuleActivator#stopped()
 	 */
 	public void stopped() {
-		log.info("Restrict By Role Module stopped");
+		log.info("Restrict By User Module stopped");
 	}
 		
 }

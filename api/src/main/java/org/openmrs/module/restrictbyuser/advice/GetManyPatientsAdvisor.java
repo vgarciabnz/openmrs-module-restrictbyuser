@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.restrictbyrole.advice;
+package org.openmrs.module.restrictbyuser.advice;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ import org.openmrs.Cohort;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.PatientSetService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.restrictbyrole.api.RestrictByRoleService;
+import org.openmrs.module.restrictbyuser.api.RestrictByUserService;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.support.StaticMethodMatcherPointcutAdvisor;
 
@@ -49,7 +49,7 @@ public class GetManyPatientsAdvisor extends StaticMethodMatcherPointcutAdvisor i
 	
 	private class GetManyPatientAdvice implements MethodInterceptor {
 		public Object invoke(MethodInvocation invocation) throws Throwable {
-			RestrictByRoleService service = (RestrictByRoleService) Context.getService(RestrictByRoleService.class);
+			RestrictByUserService service = (RestrictByUserService) Context.getService(RestrictByUserService.class);
 			Cohort restrictedResult = service.getCurrentUserRestrictedPatientSet();
 			if (restrictedResult == null)
 				return invocation.proceed();

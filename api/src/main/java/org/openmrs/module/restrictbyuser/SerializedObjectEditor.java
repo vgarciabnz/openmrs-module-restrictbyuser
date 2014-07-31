@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.restrictbyrole;
+package org.openmrs.module.restrictbyuser;
 
 import java.beans.PropertyEditorSupport;
 
@@ -19,7 +19,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.SerializedObject;
-import org.openmrs.module.restrictbyrole.api.RestrictByRoleService;
+import org.openmrs.module.restrictbyuser.api.RestrictByUserService;
 import org.springframework.util.StringUtils;
 
 public class SerializedObjectEditor extends PropertyEditorSupport {
@@ -31,7 +31,7 @@ public class SerializedObjectEditor extends PropertyEditorSupport {
 	
 	public void setAsText(String text) throws IllegalArgumentException {
 		if (StringUtils.hasText(text)) {
-			RestrictByRoleService service = Context.getService(RestrictByRoleService.class);
+			RestrictByUserService service = Context.getService(RestrictByUserService.class);
 			try {
 				SerializedObject object = service.getSerializedObject(Integer.valueOf(text)); 
 				setValue(object);

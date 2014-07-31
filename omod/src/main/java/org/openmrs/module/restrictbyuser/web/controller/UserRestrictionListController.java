@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.restrictbyrole.web.controller;
+package org.openmrs.module.restrictbyuser.web.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,8 +26,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Role;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.restrictbyrole.RoleRestriction;
-import org.openmrs.module.restrictbyrole.api.RestrictByRoleService;
+import org.openmrs.module.restrictbyuser.UserRestriction;
+import org.openmrs.module.restrictbyuser.api.RestrictByUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindException;
@@ -43,8 +43,8 @@ import org.springframework.web.servlet.view.RedirectView;
  * The main controller.
  */
 @Controller
-@RequestMapping("/module/restrictbyrole/restrictionList")
-public class  RestrictionListController {
+@RequestMapping("/module/restrictbyuser/restrictionList")
+public class  UserRestrictionListController {
 	
 	protected final Log log = LogFactory.getLog(getClass());
 	
@@ -54,13 +54,13 @@ public class  RestrictionListController {
 	}
 	
 	@ModelAttribute("restrictionList")
-	public List<RoleRestriction> populateRestrictionList(){
+	public List<UserRestriction> populateRestrictionList(){
 		
 		if (!Context.isAuthenticated())
-			return new ArrayList<RoleRestriction>();
+			return new ArrayList<UserRestriction>();
 		
-		RestrictByRoleService service = (RestrictByRoleService) Context.getService(RestrictByRoleService.class);
-		List<RoleRestriction> restrictions = service.getRoleRestrictions();
+		RestrictByUserService service = (RestrictByUserService) Context.getService(RestrictByUserService.class);
+		List<UserRestriction> restrictions = service.getUserRestrictions();
 		
 		return restrictions;
 	}
@@ -69,10 +69,13 @@ public class  RestrictionListController {
 	@RequestMapping(method = RequestMethod.POST)
 	protected String processSubmit(HttpServletRequest request) {
 		String[] toDelete = request.getParameterValues("deleteId");
-		RestrictByRoleService service = (RestrictByRoleService) Context.getService(RestrictByRoleService.class);
+		if (toDelete == null){
+			return null;
+		}
+		RestrictByUserService service = (RestrictByUserService) Context.getService(RestrictByUserService.class);
 		for (String s : toDelete) {
 			Integer id = Integer.valueOf(s);
-			service.deleteRoleRestriction(service.getRoleRestriction(id));
+			service.deleteUserRestriction(service.getUserRestriction(id));
 		}
 		return "redirect:restrictionList.form";
 	}

@@ -11,20 +11,21 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.restrictbyrole.api;
+package org.openmrs.module.restrictbyuser.api;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.restrictbyuser.api.RestrictByUserService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 /**
  * Tests {@link ${RestrictByRoleService}}.
  */
-public class  RestrictByRoleServiceTest extends BaseModuleContextSensitiveTest {
+public class  RestrictByUserServiceTest extends BaseModuleContextSensitiveTest {
 	
 	@Test
 	public void shouldSetupContext() {
-		assertNotNull(Context.getService(RestrictByRoleService.class));
+		assertNotNull(Context.getService(RestrictByUserService.class));
 	}
 }

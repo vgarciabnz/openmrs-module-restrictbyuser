@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.openmrs.module</groupId>
-	<artifactId>restrictbyuser</artifactId>
+	<artifactId>restrictbyrole</artifactId>
 	<version>1.0</version>
 	<packaging>pom</packaging>
-	<name>Restrict By User Module</name>
-	<description>Allow users to be restricted to viewing only patients that match a saved cohort.</description>
+	<name>Restrict By Role Module</name>
+	<description>Allow roles to be restricted to viewing only patients that match a saved patient search.</description>
 	<url>https://wiki.openmrs.org/display/docs/Restrict+By+Role+Module+Module</url>
 	
 	<developers>

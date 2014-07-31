@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.restrictbyrole.extension.html;
+package org.openmrs.module.restrictbyuser.extension.html;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -36,7 +36,7 @@ public class AdminList extends AdministrationSectionExt {
 	 * @see AdministrationSectionExt#getTitle()
 	 */
 	public String getTitle() {
-		return "restrictbyrole.title";
+		return "restrictbyuser.title";
 	}
 	
 	/**
@@ -44,7 +44,7 @@ public class AdminList extends AdministrationSectionExt {
 	 */
 	public Map<String, String> getLinks() {
 		LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
-		map.put("/module/restrictbyrole/restrictionList.form", "restrictbyrole.manage");
+		map.put("/module/restrictbyuser/restrictionList.form", "restrictbyuser.manage");
 		return map;
 	}
 	

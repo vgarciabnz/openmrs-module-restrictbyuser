@@ -34,7 +34,7 @@
 	<!-- / Required Modules -->
 	
 	<!-- Module Activator -->
-	<activator>${project.parent.groupId}.${project.parent.artifactId}.RestrictByRoleActivator</activator>
+	<activator>${project.parent.groupId}.${project.parent.artifactId}.RestrictByUserActivator</activator>
 	
 	
 	<!-- Adds link to admin page -->
@@ -45,7 +45,7 @@
 	
 	<!-- Maps hibernate file's, if present -->
 	<mappingFiles>
-		RoleRestriction.hbm.xml
+		UserRestriction.hbm.xml
 	</mappingFiles>
 	
 	<!-- AOP -->

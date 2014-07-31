@@ -1,4 +1,4 @@
-package org.openmrs.module.restrictbyrole.web.controller;
+package org.openmrs.module.restrictbyuser.web.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,13 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.SerializedObject;
-import org.openmrs.module.restrictbyrole.RoleRestriction;
-import org.openmrs.module.restrictbyrole.RoleRestrictionValidator;
-import org.openmrs.module.restrictbyrole.SerializedObjectEditor;
-import org.openmrs.module.restrictbyrole.api.RestrictByRoleService;
+import org.openmrs.module.restrictbyuser.UserRestriction;
+import org.openmrs.module.restrictbyuser.UserRestrictionValidator;
+import org.openmrs.module.restrictbyuser.SerializedObjectEditor;
+import org.openmrs.module.restrictbyuser.api.RestrictByUserService;
 import org.openmrs.propertyeditor.RoleEditor;
+import org.openmrs.propertyeditor.UserEditor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
@@ -33,13 +35,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
-@RequestMapping("/module/restrictbyrole/restrictionForm")
-public class RestrictionFormController {
+@RequestMapping("/module/restrictbyuser/restrictionForm")
+public class UserRestrictionFormController {
 
 	protected final Log log = LogFactory.getLog(getClass());
 	
 	@Autowired
-	private RoleRestrictionValidator roleRestrictionValidator;
+	private UserRestrictionValidator userRestUserrictionValidator;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public void initForm(){
@@ -50,23 +52,23 @@ public class RestrictionFormController {
 	protected void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(java.lang.Integer.class,
                 new CustomNumberEditor(java.lang.Integer.class, true));
-        binder.registerCustomEditor(org.openmrs.Role.class, new RoleEditor());
+        binder.registerCustomEditor(org.openmrs.User.class, new UserEditor());
         binder.registerCustomEditor(org.openmrs.api.db.SerializedObject.class, new SerializedObjectEditor());
 	}
 	
 	@ModelAttribute("restriction")
-	protected RoleRestriction formBackingObject(HttpServletRequest request) throws ServletException {
+	protected UserRestriction formBackingObject(HttpServletRequest request) throws ServletException {
 		if (!Context.isAuthenticated())
-			return new RoleRestriction();
+			return new UserRestriction();
 		
-		RoleRestriction restriction = null;
+		UserRestriction restriction = null;
 		String idStr = request.getParameter("restrictionId");
 		if (idStr != null) {
-			RestrictByRoleService service = (RestrictByRoleService) Context.getService(RestrictByRoleService.class);
-			restriction = service.getRoleRestriction(Integer.valueOf(idStr));
+			RestrictByUserService service = (RestrictByUserService) Context.getService(RestrictByUserService.class);
+			restriction = service.getUserRestriction(Integer.valueOf(idStr));
 		}
 		if (restriction == null)
-			restriction = new RoleRestriction();
+			restriction = new UserRestriction();
 		
 		return restriction;
     }
@@ -76,10 +78,18 @@ public class RestrictionFormController {
 		if (!Context.isAuthenticated())
 			return new ArrayList<SerializedObject>();
 		
-		RestrictByRoleService service = (RestrictByRoleService) Context.getService(RestrictByRoleService.class);
+		RestrictByUserService service = (RestrictByUserService) Context.getService(RestrictByUserService.class);
 		List<SerializedObject> serializedObjects = service.getAllSerializedObjects();
 		
 		return serializedObjects;
+	}
+	
+	@ModelAttribute("users")
+    protected List<User> initUsers() {
+		if (!Context.isAuthenticated())
+			return new ArrayList<User>();
+		
+		return Context.getUserService().getAllUsers();
 	}
 	
 	/**
@@ -100,16 +110,16 @@ public class RestrictionFormController {
 	}*/
 	
 	@RequestMapping(method = RequestMethod.POST)
-	protected String processSubmit(@ModelAttribute("restriction")RoleRestriction rr) {
+	protected String processSubmit(@ModelAttribute("restriction")UserRestriction rr) {
 		if (Context.isAuthenticated()) {
 			//RoleRestriction rr = (RoleRestriction) command;
-			RestrictByRoleService service = (RestrictByRoleService) Context.getService(RestrictByRoleService.class);
+			RestrictByUserService service = (RestrictByUserService) Context.getService(RestrictByUserService.class);
 			if (rr.getId() == null) {
 				log.info("Creating new RoleRestriction");
-				service.createRoleRestriction(rr);
+				service.createUserRestriction(rr);
 			} else {
 				log.info("Updating RoleRestriction");
-				service.updateRoleRestriction(rr);
+				service.updateUserRestriction(rr);
 			}
 		}
 		return "redirect:restrictionList.form";

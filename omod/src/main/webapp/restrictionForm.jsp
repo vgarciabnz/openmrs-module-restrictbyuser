@@ -2,9 +2,9 @@
 
 <%@ include file="/WEB-INF/template/header.jsp" %>
 
-<openmrs:require privilege="Manage Role Restrictions" otherwise="/login.htm" redirect="/module/restrictbyrole/restrictionList.form" />
+<openmrs:require privilege="Manage User Restrictions" otherwise="/login.htm" redirect="/module/restrictbyuser/restrictionList.form" />
 
-<h2><spring:message code="restrictbyrole.title"/></h2>
+<h2><spring:message code="restrictbyuser.title"/></h2>
 
 <form method="post">
 	<table>
@@ -15,16 +15,16 @@
 			</tr>
 		</c:if>
 		<tr>
-			<td><spring:message code="restrictbyrole.role"/></td>
-			<spring:bind path="restriction.role">
+			<td><spring:message code="restrictbyuser.user"/></td>
+			<spring:bind path="restriction.user">
 				<td>
 					<select name="${status.expression}">
 						<option value=""></option>
-						<openmrs:forEachRecord name="role">
-							<option value="${record.role}" <c:if test="${record.role == status.value}">selected</c:if>>
-								${record.role}
+						<c:forEach items="${users}" var="objectUser" >
+							<option value="${objectUser.id}" <c:if test="${objectUser.id == status.value}">selected</c:if>>
+								${objectUser.username}
 							</option>
-						</openmrs:forEachRecord>
+						</c:forEach>
 					</select>
 				</td>
 				<td>
@@ -33,7 +33,7 @@
 			</spring:bind>
 		</tr>
 		<tr>
-			<td><spring:message code="restrictbyrole.search"/></td>
+			<td><spring:message code="restrictbyuser.search"/></td>
 			<spring:bind path="restriction.serializedObject">
 				<td>
 					<select name="${status.expression}">

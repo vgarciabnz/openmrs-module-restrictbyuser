@@ -9,17 +9,17 @@
         for a list of supported elements and attributes
     -->
     
-    <changeSet id="restrictbyrole-20140726-1751" author="vgarciabnz">
+    <changeSet id="restrictbyuser-20140730-1707" author="vgarciabnz">
         
         <preConditions onFail="MARK_RAN">
-            <not><tableExists tableName="restrictbyrole_role_restriction"/></not>
+            <not><tableExists tableName="restrictbyuser_user_restriction"/></not>
         </preConditions>
         
-        <createTable tableName="restrictbyrole_role_restriction">
-            <column name="role_restriction_id" type="int" autoIncrement="true">
+        <createTable tableName="restrictbyuser_user_restriction">
+            <column name="user_restriction_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="role" type="VARCHAR(50)">
+            <column name="user" type="VARCHAR(50)">
             	<constraints nullable="false"/>
             </column>
             <column name="cohort_uuid" type="VARCHAR(36)">
